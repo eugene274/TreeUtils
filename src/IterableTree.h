@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "TreeUtils.h"
+#include "TreeIterator.h"
 
 namespace tree_utils {
 
@@ -14,11 +15,24 @@ template<class T>
 class IterableTree {
 
  public:
-  virtual std::vector<IterableTree *> get_children() = 0;
+  typedef it::TreeIterator<T> iterator;
 
-  tree_utils::iterator::TreeIterator<T> begin() {
-    return tree_utils::iterator::TreeIterator<T>(this);
+  tree_utils::it::TreeIterator<T> begin() {
+    return iterator(this);
   }
+
+  std::vector<IterableTree *> get_children() {
+    return children;
+  }
+
+  void add_child(IterableTree<T> *child) {
+    children.push_back(child);
+  }
+
+ protected:
+
+ private:
+  typename iterator::TreeStack children;
 
 };
 

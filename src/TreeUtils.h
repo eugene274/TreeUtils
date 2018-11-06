@@ -12,7 +12,7 @@ namespace tree_utils {
 template<class T>
 class IterableTree;
 
-namespace iterator {
+namespace it {
 
 template<class T>
 class TreeIterator;

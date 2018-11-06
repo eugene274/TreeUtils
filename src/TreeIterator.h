@@ -9,11 +9,14 @@
 
 namespace tree_utils {
 
-namespace iterator {
+namespace it {
 
 template<class T>
 class TreeIterator {
  public:
+  typedef std::vector<tree_utils::IterableTree<T> *> TreeStack;
+  typedef typename TreeStack::iterator TreeStackIterator;
+
   explicit TreeIterator(IterableTree<T> *_root);
 
   TreeIterator(const TreeIterator &other) = default;
@@ -27,8 +30,6 @@ class TreeIterator {
   IterableTree<T> *operator*();
 
  private:
-  typedef std::vector<tree_utils::IterableTree<T> *> TreeStack;
-  typedef typename TreeStack::iterator TreeStackIterator;
 
   void append_children();
 
@@ -41,7 +42,7 @@ class TreeIterator {
 
 
 template<class T>
-bool tree_utils::iterator::TreeIterator<T>::has_next() {
+bool tree_utils::it::TreeIterator<T>::has_next() {
   if (_stackCurrentIterator != _stack.end()) {
     return true;
   } else if (_stackParentIterator != _stack.end()) {
@@ -53,7 +54,7 @@ bool tree_utils::iterator::TreeIterator<T>::has_next() {
 }
 
 template<class T>
-tree_utils::IterableTree<T> *tree_utils::iterator::TreeIterator<T>::next() {
+tree_utils::IterableTree<T> *tree_utils::it::TreeIterator<T>::next() {
   if (_stackCurrentIterator != _stack.end()) {
     return *_stackCurrentIterator++;
   } else if (_stackParentIterator != _stack.end()) {
@@ -65,7 +66,7 @@ tree_utils::IterableTree<T> *tree_utils::iterator::TreeIterator<T>::next() {
 }
 
 template<class T>
-void tree_utils::iterator::TreeIterator<T>::append_children() {
+void tree_utils::it::TreeIterator<T>::append_children() {
   auto next_children = (*_stackParentIterator)->get_children();
 
   long cur_position = std::distance(_stack.begin(), _stackCurrentIterator);
@@ -78,14 +79,14 @@ void tree_utils::iterator::TreeIterator<T>::append_children() {
 }
 
 template<class T>
-tree_utils::iterator::TreeIterator<T>::TreeIterator(tree_utils::IterableTree<T> *_root) : _root(_root) {
+tree_utils::it::TreeIterator<T>::TreeIterator(tree_utils::IterableTree<T> *_root) : _root(_root) {
   _stack.push_back(_root);
   _stackCurrentIterator = _stack.begin();
   _stackParentIterator = _stack.begin();
 }
 
 template<class T>
-tree_utils::iterator::TreeIterator<T> tree_utils::iterator::TreeIterator<T>::operator++() {
+tree_utils::it::TreeIterator<T> tree_utils::it::TreeIterator<T>::operator++() {
   if (_stackCurrentIterator + 1 != _stack.end()) {
     ++_stackCurrentIterator;
   } else if (_stackParentIterator != _stack.end()) {
@@ -99,10 +100,10 @@ tree_utils::iterator::TreeIterator<T> tree_utils::iterator::TreeIterator<T>::ope
 }
 
 template<class T>
-tree_utils::IterableTree<T> *tree_utils::iterator::TreeIterator<T>::operator*() {
+tree_utils::IterableTree<T> *tree_utils::it::TreeIterator<T>::operator*() {
   return *_stackCurrentIterator;
 }
-} // iterator
+} // it
 } // tree_utils
 
 #endif //TREE_ITERATOR_TREEITERATOR_H

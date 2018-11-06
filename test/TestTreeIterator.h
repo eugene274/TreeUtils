@@ -15,16 +15,6 @@ class BinaryTree : public tree_utils::IterableTree<BinaryTree> {
 
  public:
   int payload = 0;
-
-  BinaryTree *left = nullptr;
-  BinaryTree *right = nullptr;
-
-  std::vector<IterableTree *> get_children() override {
-    std::vector<IterableTree *> children;
-    if (left != nullptr) children.push_back(left);
-    if (right != nullptr) children.push_back(right);
-    return children;
-  }
 };
 
 TEST(TestTreeIterator, HasNext) {
@@ -37,10 +27,10 @@ TEST(TestTreeIterator, HasNext) {
   auto *tree_2 = new BinaryTree;
   tree_2->payload = 2;
 
-  tree_root->left = tree_1;
-  tree_root->right = tree_2;
+  tree_root->add_child(tree_1);
+  tree_root->add_child(tree_2);
 
-  tree_1->left = tree_1_1;
+  tree_1->add_child(tree_1_1);
 
   ASSERT_EQ(tree_root->get_children().size(), 2);
 
