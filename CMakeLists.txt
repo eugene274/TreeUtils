@@ -11,7 +11,12 @@ install(
         TARGETS TreeUtils
         LIBRARY DESTINATION lib
         RUNTIME DESTINATION bin
-        INCLUDES DESTINATION include/TreeUtils
+)
+
+install(
+        DIRECTORY src
+        DESTINATION include/TreeUtils
+        FILES_MATCHING PATTERN "*.h"
 )
 
 
