@@ -6,20 +6,17 @@
 #define TREE_ITERATOR_TREETOOLS_H
 
 #include <vector>
-#include "IterableTree.h"
 
 namespace tree_utils {
 
-
-typedef std::vector <tree_utils::IterableTree *> TreeStack;
-typedef TreeStack::iterator TreeStackIterator;
-
+template<class T>
 class IterableTree;
 
 namespace iterator {
- class TreeIterator;
-}
 
+template<class T>
+class TreeIterator;
+}
 
 }
 

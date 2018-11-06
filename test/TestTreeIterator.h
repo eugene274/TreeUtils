@@ -11,7 +11,7 @@
 
 namespace {
 
-class BinaryTree : public tree_utils::IterableTree {
+class BinaryTree : public tree_utils::IterableTree<BinaryTree> {
 
  public:
   int payload = 0;
@@ -45,7 +45,7 @@ TEST(TestTreeIterator, HasNext) {
   ASSERT_EQ(tree_root->get_children().size(), 2);
 
   {
-    tree_utils::iterator::TreeIterator tree_iterator(tree_root);
+    auto tree_iterator = tree_root->begin();
     ASSERT_EQ(tree_iterator.next(), tree_root);
     ASSERT_EQ(tree_iterator.next(), tree_1);
     ASSERT_EQ(tree_iterator.next(), tree_2);
@@ -54,7 +54,7 @@ TEST(TestTreeIterator, HasNext) {
   }
 
   {
-    tree_utils::iterator::TreeIterator tree_iterator(tree_root);
+    auto tree_iterator = tree_root->begin();
     ASSERT_EQ(*tree_iterator, tree_root);
     ++tree_iterator;
     ASSERT_EQ(*tree_iterator, tree_1);

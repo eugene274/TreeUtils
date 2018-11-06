@@ -6,13 +6,20 @@
 #define TREE_ITERATOR_ITERABLE_H
 
 #include <vector>
+#include "TreeUtils.h"
 
 namespace tree_utils {
 
+template<class T>
 class IterableTree {
 
  public:
-  virtual std::vector <tree_utils::IterableTree *> get_children() = 0;
+  virtual std::vector<IterableTree *> get_children() = 0;
+
+  tree_utils::iterator::TreeIterator<T> begin() {
+    return tree_utils::iterator::TreeIterator<T>(this);
+  }
+
 };
 
 }
