@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.10)
 project(tree_utils)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -14,7 +14,7 @@ install(
 )
 
 install(
-        DIRECTORY src
+        DIRECTORY src/
         DESTINATION include/TreeUtils
         FILES_MATCHING PATTERN "*.h"
 )
